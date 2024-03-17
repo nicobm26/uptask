@@ -1,0 +1,10 @@
+node_modules/
+vendor/
+*.sql
+.DS_Store
+includes/.env
+
+public/imagenes/
+public/build/
+
+src/img/
