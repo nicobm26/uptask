@@ -16,4 +16,9 @@
             color: v.$rosa;
         }
     }
+    .contenedor-sm {
+        @include m.tablet {
+            padding: 0 6rem;
+        }    
+    }
 }

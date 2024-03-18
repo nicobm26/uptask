@@ -16,4 +16,10 @@
             color: v.$morado;
         }
     }
+
+    .contenedor-sm {
+        @include m.tablet {
+            padding: 0 6rem;
+        }    
+    }
 }
