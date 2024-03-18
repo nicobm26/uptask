@@ -174,7 +174,20 @@ class ActiveRecord {
         return $sanitizado;
     }
 
+
+    /**
+     * Sincroniza las propiedades del objeto con los argumentos proporcionados.
+     *
+     * Esta función itera sobre los arreglo `$args` y asigna sus valores a las propiedades del objeto actual (`$this`). 
+     * Solo se realiza la asignación si:
+     *  - La propiedad existe en el objeto (verificado con `property_exists`).
+     *  - El valor del argumento no es nulo (`null`).
+     *
+     * @param array $args Arreglo asociativo que contiene los pares clave-valor para sincronizar.
+     * @return void
+     */
     public function sincronizar($args=[]) { 
+        // debuguear( get_class($this));  // Puedes descomentar para depurar
         foreach($args as $key => $value) {
           if(property_exists($this, $key) && !is_null($value)) {
             $this->$key = $value;
