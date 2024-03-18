@@ -7,7 +7,7 @@
     <div class="contenedor-sm">
         <p class="descripcion-pagina">Iniciar Sesión</p>
 
-        <form class="formulario" method="post">
+        <form class="formulario" method="post" action="/">
             <div class="campo">
                 <label for="email">Correo</label>
                 <input 

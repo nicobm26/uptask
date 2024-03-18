@@ -7,7 +7,7 @@
     <div class="contenedor-sm">
         <p class="descripcion-pagina">Crea tu Cuenta</p>
 
-        <form class="formulario" method="post">
+        <form class="formulario" method="post" action="/crear">
             <div class="campo">
                 <label for="nombre">Nombre</label>
                 <input 
