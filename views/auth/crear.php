@@ -48,7 +48,7 @@
                 />
             </div>
 
-            <input type="submit" class="boton" value="Iniciar Sesión">
+            <input type="submit" class="boton" value="Crear Cuenta">
 
             <div class="acciones">
                 <a href="/">¿Ya tienes una cuenta? Iniciar Sesión</a>
