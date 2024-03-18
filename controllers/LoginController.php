@@ -42,16 +42,21 @@ class LoginController {
     }
 
 
-    public static function reestablecer() {
-        echo "desde olvide";
-
+    public static function reestablecer(Router $router) {
+    
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         }
+
+        $router-> render('auth/reestablecer',[
+            'titulo'=> 'Reestablecer Contraseña'
+        ]);
     }
 
-    public static function mensaje() {
-        echo "desde mensaje";    
+    public static function mensaje(Router $router) {
+        $router-> render('auth/mensaje',[
+            'titulo'=> 'Cuenta creada exitosamente'
+        ]);
     }
 
     public static function confirmar() {
