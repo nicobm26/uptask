@@ -1,0 +1,14 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.mensaje{
+    margin-top: 2rem;
+    .uptask{
+        @include m.textoDegradado(v.$naranja);
+    }
+    .contenedor-sm {
+        @include m.tablet {
+            padding: 0 6rem;
+        }    
+    }
+}
