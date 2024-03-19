@@ -57,7 +57,7 @@ class Usuario extends ActiveRecord{
     }
 
     public function generarToken(){
-        $length=32; // Longitud del token en bytes
+        $length=16; // Longitud del token en bytes
         $token = bin2hex(random_bytes($length)); // Genera bytes aleatorios y los convierte en una cadena hexadecimal
         $this->token = $token;
     }
