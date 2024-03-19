@@ -52,4 +52,13 @@ class Usuario extends ActiveRecord{
         return self::$alertas;
     }
 
+    public function hashPassword(){
+        $this->password = password_hash( $this->password, PASSWORD_BCRYPT );
+    }
+
+    public function generarToken(){
+        $length=32; // Longitud del token en bytes
+        $token = bin2hex(random_bytes($length)); // Genera bytes aleatorios y los convierte en una cadena hexadecimal
+        $this->token = $token;
+    }
 }
