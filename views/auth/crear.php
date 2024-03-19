@@ -7,6 +7,10 @@
     <div class="contenedor-sm">
         <p class="descripcion-pagina">Crea tu Cuenta</p>
 
+        <?php
+            include_once(__DIR__ ."/../templates/alertas.php");
+        ?>
+
         <form class="formulario" method="post" action="/crear">
             <div class="campo">
                 <label for="nombre">Nombre</label>
