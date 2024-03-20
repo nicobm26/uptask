@@ -94,7 +94,7 @@ class Email
 
             $contenido = "<html>";
             $contenido .= "<p><strong>Hola " . $this->nombre . "</strong> Has solicitado reestablecer tu contraseña, sigue el siguiente enlace para hacerlo</p>";
-            $contenido .= "<p>Presiona aqui: <a href='" . $_ENV['APP_URL'] . "/recuperar?token="
+            $contenido .= "<p>Presiona aqui: <a href='" . $_ENV['APP_URL'] . "/reestablecer?token="
                 . $this->token . "'>Reestablecer Cuenta</a> </p>";
             $contenido .= "<p> Si tu no soliciste esta cambio, puedes ignorar el mensaje </p>";
             $contenido .= "</html>";
