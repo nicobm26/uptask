@@ -19,11 +19,13 @@ class DashboardController{
     public static function crear_proyecto(Router $router){
      
         session_start();
-
         isAuth();
+        $alertas = [];
+        
         
         $router->render('dashboard/crear-proyecto',[
-            'titulo' => 'Proyectos'
+            'titulo' => 'Proyectos',
+            'alertas'=> $alertas
         ]);
     }
 
