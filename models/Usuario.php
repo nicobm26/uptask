@@ -61,4 +61,23 @@ class Usuario extends ActiveRecord{
         $token = bin2hex(random_bytes($length)); // Genera bytes aleatorios y los convierte en una cadena hexadecimal
         $this->token = $token;
     }
+
+    public function validarEmail(){
+        if(empty($this->email) ){
+            self::$alertas['error'][] = 'El Correo es obligatorio';
+        }else if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            self::$alertas['error'][] = 'El Correo no tiene el formato correcto';
+        }
+        return self::$alertas;
+    }
+
+    public function validarPassword(){
+        if(!$this->password){
+            self::$alertas['error'][] = 'La contraseña es obligatoria';
+        }else if( !preg_match("/^(?=(?:.*[A-Z]){1})(?=(?:.*[a-z]){5,})(?=(?:.*[0-9]){1})/", $this->password)){
+            self::$alertas['error'][] = "La contraseña no es válida. Debe contener al menos 5 letras minúsculas, un número y una letra mayúscula.";
+        }
+        return self::$alertas;        
+    }
+
 }
