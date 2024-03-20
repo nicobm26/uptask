@@ -80,4 +80,11 @@ class Usuario extends ActiveRecord{
         return self::$alertas;        
     }
 
+    public function validarLogin(){
+        self::$alertas = [];
+        $this->validarEmail();
+        $this->validarPassword();    
+        return self::$alertas;
+    }
+
 }
