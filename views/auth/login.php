@@ -7,6 +7,10 @@
     <div class="contenedor-sm">
         <p class="descripcion-pagina">Iniciar Sesión</p>
 
+        <?php
+            include_once(__DIR__ ."/../templates/alertas.php");
+        ?>
+
         <form class="formulario" method="post" action="/">
             <div class="campo">
                 <label for="email">Correo</label>
@@ -15,6 +19,7 @@
                     id="email" 
                     name="email"
                     placeholder="Tu Correo"
+                    value=" <?php echo $correo?>"
                 />
             </div>
 
