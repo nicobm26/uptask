@@ -45,10 +45,9 @@
                     modal.remove();
                 }, 500);
                 
-            }else{
-                console.log("NO cerrar")
             }
-            console.log(e.target);
+             
+            // console.log(e.target);
         })
         
         document.querySelector('body').appendChild(modal);
