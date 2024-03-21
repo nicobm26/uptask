@@ -50,6 +50,24 @@ class DashboardController{
         ]);
     }
 
+    public static function proyecto(Router $router){
+        session_start();
+        isAuth();
+
+        $token = $_GET['id'];
+        if(!$token) header('Location: /dashboard');
+        //Revisar que la persona que visita el proyecto, sea el creador/propietario
+        $proyecto = Proyecto::where('url', $token);
+        if($proyecto->propietarioId !== $_SESSION['id']){
+            header('Location: /dashboard');        
+        }
+       
+        $router->render('dashboard/proyecto',[
+            'titulo' => $proyecto->nombre
+        ]);
+
+    }
+
     
     public static function perfil(Router $router){
      
