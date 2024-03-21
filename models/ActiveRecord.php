@@ -70,6 +70,13 @@ class ActiveRecord {
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
+    
+    //Busca todos los registros que pertene a un campo
+    public static function belongsTo($columna, $valor) {
+        $query = "SELECT * FROM " . static::$tabla . " WHERE $columna = '$valor'";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
 
     // SQL para Consultas Avanzadas.
     public static function SQL($consulta) {
