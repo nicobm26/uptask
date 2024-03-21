@@ -19,3 +19,8 @@ function isAuth() : void {
         header('Location: /');
     }
 }
+
+// Función que revisa cada dato enviado por post y elimina los espacios 
+function datosSinEspacios($arreglo) : array {
+    return array_map('trim', $arreglo);
+}
