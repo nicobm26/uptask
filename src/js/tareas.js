@@ -34,6 +34,22 @@
             let formulario = document.querySelector('.formulario');
             formulario.classList.add('animar');
         }, 0);
+
+        modal.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            if(e.target.classList.contains('cerrar-modal')){
+                let formulario = document.querySelector('.formulario');
+                formulario.classList.add('cerrar');
+                setTimeout(() => {
+                    modal.remove();
+                }, 500);
+                
+            }else{
+                console.log("NO cerrar")
+            }
+            console.log(e.target);
+        })
         
         document.querySelector('body').appendChild(modal);
     }
