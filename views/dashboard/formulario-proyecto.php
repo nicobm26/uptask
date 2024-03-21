@@ -2,8 +2,8 @@
     <label for="nombre">Nombre del Proyecto</label>
     <input 
         type="text"
-        id="proyecto"
-        name="proyecto"
+        id="nombre"
+        name="nombre"
         placeholder="Nombre del proyecto"
     />
 </div>
