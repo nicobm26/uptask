@@ -5,7 +5,7 @@ namespace Model;
 use Model\ActiveRecord;
 
 class Proyecto extends ActiveRecord{
-    protected static $tabala = "proyectos";
+    protected static $tabla = "proyectos";
     protected static $columnasDB = ['id', 'nombre', 'url', 'propietarioId'];
 
     public $id;
