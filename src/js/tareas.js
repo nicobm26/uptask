@@ -67,7 +67,7 @@
             return;
         }
 
-        agregarTarea();
+        agregarTarea(tarea);
     }
 
     //Muestra mensaje en la interfaz
@@ -91,8 +91,37 @@
     }
 
     //Consultar el servidor para añadir una tarea
-    function agregarTarea(){
-        
+    async function agregarTarea(tarea){
+        //Contruir la peticion  pdta: Toca que usar formdata
+        const datos = new FormData();
+        datos.append('nombre', tarea);
+        datos.append('url',obtenerProyecto());
+
+        try {
+            const url = `${location.origin}/api/tarea`;
+            const respuesta = await fetch(url, {
+                method: 'POST',
+                body: datos
+            });
+
+            console.log(await respuesta.json());
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+    function obtenerProyecto(){
+        const proyectoQueryParams = new URLSearchParams(window.location.search);
+        const proyecto = Object.fromEntries(proyectoQueryParams.entries());
+        return proyecto.id;
+    }
+
+    //hace lo mismo que obtenerProyecto solo que todo desde una variable
+    function getProject() {
+        const project = Object.fromEntries(
+            new URLSearchParams(window.location.search)
+        );
+        return project.id;
     }
     
 })();
