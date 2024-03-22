@@ -54,18 +54,47 @@
             // console.log(e.target);
         })
         
-        document.querySelector('body').appendChild(modal);
+        document.querySelector('.dashboard').appendChild(modal);
+        // document.querySelector('body').appendChild(modal);  //queda div , script , div(modal) y queremos es que los script sean los ultimos
     }
 
     function submitFormularioNuevaTarea(){
         const tarea = document.querySelector('#tarea').value.trim();
 
         if(tarea === ""){
-            //mostrar una alerta de error
-
+            //mostrar una alerta de             
+            mostrarAlerta('El nombre de la tarea es obligatorio', 'error', document.querySelector('.formulario legend'));
             return;
         }
+
+        agregarTarea();
     }
+
+    //Muestra mensaje en la interfaz
+    function mostrarAlerta(mensaje, tipo, referencia){
+
+        //Previene la creacion de multiples alertas
+        const alertaPrevia = document.querySelector('.alerta');
+        if(alertaPrevia){
+            alertaPrevia.remove();
+        }
+
+        const alerta = document.createElement('DIV');
+        alerta.classList.add('alerta', tipo);
+        alerta.textContent = mensaje;
+        referencia.parentElement.insertBefore(alerta, referencia.nextElementSibling);
+
+        //Eliminar la alerta despues de 5 segundos
+        setTimeout(() => {
+            alerta.remove();
+        }, 4000);
+    }
+
+    //Consultar el servidor para añadir una tarea
+    function agregarTarea(){
+        
+    }
+    
 })();
 
 
