@@ -104,7 +104,22 @@
                 body: datos
             });
 
-            console.log(await respuesta.json());
+            const resultado = await respuesta.json();
+
+            mostrarAlerta(resultado.mensaje , resultado.tipo, document.querySelector('.formulario legend'));
+
+            if(resultado.tipo === "exito"){
+                const modal = document.querySelector('.modal');
+                const elementosOpciones = document.querySelectorAll('.opciones *');
+
+                elementosOpciones.forEach(elemento => {
+                    elemento.disabled = true;
+                });
+                        
+                setTimeout(() => {
+                    modal.remove();
+                }, 3000);
+            }
         } catch (error) {
             console.log(error);
         }
