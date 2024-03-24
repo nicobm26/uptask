@@ -1,8 +1,80 @@
 ( function(){
+
+
+    obtenerTareas();
     
     //boton para mostrar el formulario
     let nuevaTareaBtn = document.querySelector('#agregar-tarea');
     nuevaTareaBtn.addEventListener('click', mostrarFormulario);
+
+    async function obtenerTareas(){
+        try {
+            const urlProyecto = obtenerProyecto();            
+            const urlApi = `${location.origin}/api/tareas?id=${urlProyecto}`;
+            const respuesta = await fetch(urlApi);
+            const resultado = await respuesta.json();
+            const {tareas} = resultado;
+
+            // console.log(tareas);
+            mostrarTareas(tareas);
+        } catch (error) {
+            console.log(error);
+        }
+       
+    }
+
+    function mostrarTareas(tareas){
+        if(tareas.length === 0){
+            const contenedorTareas = document.querySelector('#listado-tareas');
+
+            const textNoTareas = document.createElement('LI');
+            textNoTareas.textContent = "No hay tareas";
+            textNoTareas.classList.add('no-tareas');
+
+            contenedorTareas.appendChild(textNoTareas);
+            return;
+        }
+
+        const estados = {
+            0: "Pendiente",
+            1: "Completa"
+        };
+
+        tareas.forEach(tarea =>{
+            const contenedorTarea = document.createElement('LI');
+            contenedorTarea.dataset.tareaId = tarea.id;
+            contenedorTarea.classList.add('tarea');
+        
+            const nombreTarea = document.createElement('P');
+            nombreTarea.textContent = tarea.nombre;
+
+            //opciones 
+            const opcionesDiv = document.createElement('DIV');
+            opcionesDiv.classList.add('opciones');
+
+            const btnEstadoTarea = document.createElement('BUTTON');
+            btnEstadoTarea.classList.add('estado-tarea');
+            btnEstadoTarea.classList.add(`${estados[tarea.estado].toLowerCase()}`);
+            btnEstadoTarea.textContent = estados[tarea.estado];
+            btnEstadoTarea.dataset.estadoTarea = tarea.estado;
+
+            const btnEliminarTarea = document.createElement('BUTTON');
+            btnEliminarTarea.classList.add('eliminar-tarea');
+            btnEliminarTarea.dataset.estadoTarea = tarea.estado;
+            btnEliminarTarea.textContent = "Eliminar";
+
+            opcionesDiv.appendChild(btnEstadoTarea);
+            opcionesDiv.appendChild(btnEliminarTarea);
+
+            contenedorTarea.appendChild(nombreTarea);
+            contenedorTarea.appendChild(opcionesDiv);
+
+            const contenedorTareas = document.querySelector('#listado-tareas');
+            contenedorTareas.appendChild(contenedorTarea);
+
+        })
+
+    }
 
     function mostrarFormulario(){
         const modal = document.createElement('DIV');
