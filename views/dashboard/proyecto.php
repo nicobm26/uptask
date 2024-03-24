@@ -10,6 +10,8 @@
             id="agregar-tarea"
         >&#43; Nueva Tarea</button>
     </div>
+
+    <ul class="listado-tareas" id="listado-tareas"></ul>
 </div>
 
 
