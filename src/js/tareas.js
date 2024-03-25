@@ -1,8 +1,8 @@
 ( function(){
-
-
-    obtenerTareas();
+    
     let tareas = [];
+    obtenerTareas();
+
 
     
     //boton para mostrar el formulario
@@ -28,7 +28,7 @@
     }
 
     function limpiarTareas(){
-        const listadoTareas = document.querySelector('#listadorTareas');
+        const listadoTareas = document.querySelector('#listado-tareas');
         while(listadoTareas.firstChild){
             listadoTareas.removeChild(listadoTareas.firstChild)
         }
@@ -69,6 +69,9 @@
             btnEstadoTarea.classList.add(`${estados[tarea.estado].toLowerCase()}`);
             btnEstadoTarea.textContent = estados[tarea.estado];
             btnEstadoTarea.dataset.estadoTarea = tarea.estado;
+            btnEstadoTarea.ondblclick = function(){
+                cambiarEstadoTarea({...tarea});
+            }
 
             const btnEliminarTarea = document.createElement('BUTTON');
             btnEliminarTarea.classList.add('eliminar-tarea');
@@ -86,6 +89,15 @@
 
         })
 
+    }
+
+    function cambiarEstadoTarea(tarea){
+        const nuevoEstado = tarea.estado === "1" ? "0" : "1";
+        tarea.estado = nuevoEstado;
+       actualizarTarea(tarea);
+    }
+    function actualizarTarea(tarea){
+        
     }
 
     function mostrarFormulario(){
