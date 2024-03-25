@@ -2,6 +2,8 @@
 
 
     obtenerTareas();
+    let tareas = [];
+
     
     //boton para mostrar el formulario
     let nuevaTareaBtn = document.querySelector('#agregar-tarea');
@@ -13,17 +15,27 @@
             const urlApi = `${location.origin}/api/tareas?id=${urlProyecto}`;
             const respuesta = await fetch(urlApi);
             const resultado = await respuesta.json();
-            const {tareas} = resultado;
+            // const {tareas} = resultado;
+
+            tareas = resultado.tareas;
 
             // console.log(tareas);
-            mostrarTareas(tareas);
+            mostrarTareas();
         } catch (error) {
             console.log(error);
         }
        
     }
 
-    function mostrarTareas(tareas){
+    function limpiarTareas(){
+        const listadoTareas = document.querySelector('#listadorTareas');
+        while(listadoTareas.firstChild){
+            listadoTareas.removeChild(listadoTareas.firstChild)
+        }
+    }
+
+    function mostrarTareas(){
+        limpiarTareas();
         if(tareas.length === 0){
             const contenedorTareas = document.querySelector('#listado-tareas');
 
@@ -191,6 +203,17 @@
                 setTimeout(() => {
                     modal.remove();
                 }, 3000);
+
+                //Agregar el objeto de tarea al global de tareas
+                const tareaObj = {
+                    id: String(resultado.id),
+                    nombre: tarea,
+                    estado: 0,
+                    proyectoId: resultado.proyectoId
+                }
+                // console.log(tareaObj);
+                tareas = [... tareas, tareaObj];
+                mostrarTareas();
             }
         } catch (error) {
             console.log(error);
