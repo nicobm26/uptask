@@ -16,7 +16,7 @@ class Tarea extends ActiveRecord{
     public function __construct($args=[]) {
         $this->id = $args['id'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
-        $this->estado = $args[''] ?? 0;
-        $this->proyectoId = $args[''] ?? '';
+        $this->estado = $args['estado'] ?? 0;
+        $this->proyectoId = $args['proyectoId'] ?? '';
     }
 }
