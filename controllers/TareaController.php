@@ -55,8 +55,42 @@ class TareaController{
     }
 
     public static function actualizar(){
+        session_start();
 
-        
+        //Validar que el proyecto exista
+        $proyecto = Proyecto::where('url',$_POST['proyectoId']);
+        if(!$proyecto || $proyecto->propietarioId !== $_SESSION['id']){
+            $respuesta = [
+                'tipo' => 'error',
+                'mensaje' => 'Hubo un error al agregar la tarea'
+            ];
+            echo json_encode($respuesta);        
+            return;
+        }
+
+        //Opcion 1
+        $tarea = new Tarea($_POST);
+        $tarea->proyectoId = $proyecto->id;
+        $resultado = $tarea->guardar();
+
+        if($resultado){
+            $respuesta = [
+                'tipo' => 'exito',
+                'id' => $tarea->id,   //Lo requerimos para el virtual dom
+                'proyectoId' => $proyecto->id,
+                'mensaje' => 'Actualizado Correctamente'
+            ]; 
+            echo json_encode(['respuesta' => $respuesta]);
+        }
+
+
+        //Opcion 2
+        // $idTarea = $_POST['id'];
+        // $tarea = Tarea::where('id', $idTarea);      
+        // $tarea->sincronizar($_POST);
+        // $tarea->proyectoId = $proyecto->id;
+
+        // echo json_encode(['proyecto' => $proyecto]);
     }
 
     public static function eliminar(){
