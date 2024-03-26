@@ -124,6 +124,15 @@
                     resultado.respuesta.tipo,
                     document.querySelector('.contenedor-nueva-tarea')
                 );
+
+                tareas = tareas.map(tareaMemoria =>{
+                    if(tareaMemoria.id === tarea.id){
+                        tareaMemoria.estado = tarea.estado;
+                    }
+                    return tareaMemoria;
+                });
+
+                mostrarTareas();
             }
         } catch (error) {
             console.log(error);
