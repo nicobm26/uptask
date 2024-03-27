@@ -53,6 +53,37 @@ class DashboardController{
         ]);
     }
 
+    public static function eliminar_proyecto(){
+        session_start();
+        isAuth();
+ 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'];
+            $id = filter_var($id, FILTER_VALIDATE_INT);
+ 
+            if ($id) {
+                $proyecto = Proyecto::find($id);
+                if ($proyecto->propietarioId === $_SESSION['id']) {
+                    $id = $_POST['id'];
+                    $proyecto = Proyecto::find($id);
+ 
+                    // Eliminar Tareas del Proyecto (no olvides importar la clase Tarea)
+                    $tareas = Tarea::belongsTo('proyectoId', $proyecto->id);
+ 
+                    foreach ($tareas as $tarea) {
+                        $tarea->eliminar();
+                    }
+ 
+                    // Eliminar Proyecto
+                    $proyecto->eliminar();
+ 
+                    // Redireccionar
+                    header('Location: /dashboard');
+                }
+            }
+        }
+    }
+
     public static function proyecto(Router $router){
         session_start();
         isAuth();

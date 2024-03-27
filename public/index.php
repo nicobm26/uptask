@@ -35,6 +35,8 @@ $router->post( '/dashboard' , [DashboardController::class, 'index']);
     //Crear Proyectos
 $router->get( '/crear-proyecto' , [DashboardController::class, 'crear_proyecto']);
 $router->post( '/crear-proyecto' , [DashboardController::class, 'crear_proyecto']);
+$router->post('/proyecto/eliminar', [DashboardController::class, 'eliminar_proyecto']);
+
     //modificar el perfil
 $router->get( '/perfil' , [DashboardController::class, 'perfil']);
 $router->post( '/perfil' , [DashboardController::class, 'perfil']);
