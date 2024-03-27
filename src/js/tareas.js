@@ -7,7 +7,9 @@
     
     //boton para mostrar el formulario
     let nuevaTareaBtn = document.querySelector('#agregar-tarea');
-    nuevaTareaBtn.addEventListener('click', mostrarFormulario);
+    nuevaTareaBtn.addEventListener('click', function(){
+        mostrarFormulario()
+    });
 
     async function obtenerTareas(){
         try {
@@ -59,6 +61,9 @@
         
             const nombreTarea = document.createElement('P');
             nombreTarea.textContent = tarea.nombre;
+            nombreTarea.ondblclick = function(){
+                mostrarFormulario(editar=true, {...tarea});
+            }
 
             //opciones 
             const opcionesDiv = document.createElement('DIV');
@@ -203,26 +208,27 @@
         // });
     }
 
-    function mostrarFormulario(){
+    function mostrarFormulario(editar = false, tarea ={}){
         const modal = document.createElement('DIV');
         modal.classList.add('modal');
         modal.innerHTML = `
         <form class='formulario nueva-tarea'>
-            <legend>Añade una nueva tarea</legend>
+            <legend>${editar ? 'Editar tarea' : 'Añade una nueva tarea'}</legend>
             <div class='campo'>
                 <label>Tarea</label>
                 <input
                     type='text'
                     name='tarea'
                     id='tarea'
-                    placeholder='Añadir Tarea al Proyecto Actual'
+                    placeholder='${tarea.nombre ? 'Edita la tarea' : 'Añadir Tarea al Proyecto Actual'}'
+                    value = "${tarea.nombre ? tarea.nombre : ''}"
                 /> 
             </div>
             <div class='opciones'>
                 <input 
                     type='submit'
                     class='submit-nueva-tarea'
-                    value='Añadir Tarea'
+                    value='${tarea.nombre ? 'Guardar Cambios' : 'Añadir Tarea'}'
                 />
                 <button type='button' class='cerrar-modal'>Cancelar</button>
             </div>
@@ -247,7 +253,20 @@
             }
 
             if(e.target.classList.contains('submit-nueva-tarea')){
-                submitFormularioNuevaTarea();
+                const nombreTarea = document.querySelector('#tarea').value.trim();
+                if(nombreTarea === ""){
+                    //mostrar una alerta de             
+                    mostrarAlerta('El nombre de la tarea es obligatorio', 'error', document.querySelector('.formulario legend'));
+                    return;
+                }
+
+                if(editar){
+                    tarea.nombre = nombreTarea;
+                    actualizarTarea(tarea);
+                }else{
+                    agregarTarea(nombreTarea);
+                }
+                
             }            
              
             // console.log(e.target);
@@ -255,18 +274,6 @@
         
         document.querySelector('.dashboard').appendChild(modal);
         // document.querySelector('body').appendChild(modal);  //queda div , script , div(modal) y queremos es que los script sean los ultimos
-    }
-
-    function submitFormularioNuevaTarea(){
-        const tarea = document.querySelector('#tarea').value.trim();
-
-        if(tarea === ""){
-            //mostrar una alerta de             
-            mostrarAlerta('El nombre de la tarea es obligatorio', 'error', document.querySelector('.formulario legend'));
-            return;
-        }
-
-        agregarTarea(tarea);
     }
 
     //Muestra mensaje en la interfaz
