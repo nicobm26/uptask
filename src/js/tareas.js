@@ -163,7 +163,8 @@
             cancelButtonText: 'No'
           }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {                
+            if (result.isConfirmed) {   
+                scrollToTop(); //desplazar al principio             
                 eliminarTarea(tarea);
             }
           });
@@ -191,27 +192,25 @@
                 //     resultado.tipo,
                 //     document.querySelector('.contenedor-nueva-tarea')
                 // );
-
+                scrollToTop(); //desplazar al principio
                 
                 Swal.fire('eliminado',resultado.mensaje, 'success');
                 
                 tareas = tareas.filter( tareaMemoria =>  tareaMemoria.id !== tarea.id);
-                scrollToTop();
+                
                 mostrarTareas();
             }
         } catch (error) {
-            console.log(error);
+            console.error('Error al eliminar tarea:', error);
         }
     }
 
     // Scroll suave al inicio de la página
     function scrollToTop() {
-        // window.scrollTo(0, 0);
-        window.scroll(0, 0);
-        // window.scrollTo({
-        //     top: 0,
-        //     behavior: 'smooth' // Opcional, para un desplazamiento suave
-        // });
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Opcional, para un desplazamiento suave
+        });
     }
 
     function mostrarFormulario(editar = false, tarea ={}){
@@ -330,7 +329,7 @@
                         
                 setTimeout(() => {
                     modal.remove();
-                }, 3000);
+                }, 1000);
 
                 //Agregar el objeto de tarea al global de tareas
                 const tareaObj = {
