@@ -152,21 +152,55 @@
             cancelButtonText: 'No'
           }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-              Swal.fire("Saved!", "", "success");
-              eliminarTarea(tarea);
+            if (result.isConfirmed) {                
+                eliminarTarea(tarea);
             }
           });
     }
 
-    async function eliminarTarea(){
+    async function eliminarTarea(tarea){
+        let {id, nombre, estado } = tarea;
         const datos = new FormData();
+        datos.append ( 'id', id);
+        datos.append ( 'nombre', nombre);
+        datos.append ( 'estado', estado);
+        datos.append ( 'proyectoId', obtenerProyecto());
+
         try {
-            url = `${location.origin}/`
-            
+            url = `${location.origin}/api/eliminar`;
+            const respuesta = await fetch(url,{
+                method: 'POST',
+                body: datos
+            });
+            const resultado = await respuesta.json();
+            console.log(resultado);
+            if(resultado.resultado){
+                // mostrarAlerta(
+                //     resultado.mensaje,
+                //     resultado.tipo,
+                //     document.querySelector('.contenedor-nueva-tarea')
+                // );
+
+                
+                Swal.fire('eliminado',resultado.mensaje, 'success');
+                
+                tareas = tareas.filter( tareaMemoria =>  tareaMemoria.id !== tarea.id);
+                scrollToTop();
+                mostrarTareas();
+            }
         } catch (error) {
             console.log(error);
         }
+    }
+
+    // Scroll suave al inicio de la página
+    function scrollToTop() {
+        // window.scrollTo(0, 0);
+        window.scroll(0, 0);
+        // window.scrollTo({
+        //     top: 0,
+        //     behavior: 'smooth' // Opcional, para un desplazamiento suave
+        // });
     }
 
     function mostrarFormulario(){
