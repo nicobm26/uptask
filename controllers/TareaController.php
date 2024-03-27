@@ -57,7 +57,7 @@ class TareaController{
     public static function actualizar(){
         session_start();
 
-        //Validar que el proyecto exista
+        //Validar que el proyecto exista o sea del propietario
         $proyecto = Proyecto::where('url',$_POST['proyectoId']);
         if(!$proyecto || $proyecto->propietarioId !== $_SESSION['id']){
             $respuesta = [
