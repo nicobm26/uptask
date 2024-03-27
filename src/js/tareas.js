@@ -125,17 +125,23 @@
                 body: datos
             });
             const resultado = await respuesta.json();
-            console.log(resultado);
+            // console.log(resultado);
+
             if(resultado.respuesta.tipo === "exito"){
-                mostrarAlerta(
+                Swal.fire(
                     resultado.respuesta.mensaje,
-                    resultado.respuesta.tipo,
-                    document.querySelector('.contenedor-nueva-tarea')
-                );
+                    resultado.respuesta.mensaje,
+                    'success'
+                )
+
+                const modal = document.querySelector('.modal');
+                if(modal)
+                    modal.remove();
 
                 tareas = tareas.map(tareaMemoria =>{
                     if(tareaMemoria.id === tarea.id){
                         tareaMemoria.estado = tarea.estado;
+                        tareaMemoria.nombre = tarea.nombre;
                     }
                     return tareaMemoria;
                 });
