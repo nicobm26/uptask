@@ -28,26 +28,14 @@
             tareas = resultado.tareas;
 
             completadas = tareas.filter(tarea => tarea.estado === "1");
-            if(!completadas.length){
-                // Si no hay tareas completadas, 
-                // desactivamos el radio button completadas
-                // completadasCheck.disabled = true;
-            } else {
-                // Pero si hay, lo activamos
-                completadasCheck.disabled = false;
-            }
+            
             // Vamos con las pendientes
             pendientes = tareas.filter(tarea => tarea.estado === "0");
-            if(!pendientes.length){
-                // pendientesCheck.disabled = true;
-            } else {
-                pendientesCheck.disabled = false;
-            }
-
+            
             // console.log(tareas);
             mostrarTareas();
         } catch (error) {
-            console.log(error);
+            console.log('Error al obtener las tareas: ' + error);
         }
        
     }
@@ -143,6 +131,7 @@
         tarea.estado = nuevoEstado;
        actualizarTarea(tarea);
     }
+
     async function actualizarTarea(tarea){
         let {id, nombre, estado } = tarea;
         const datos = new FormData();
@@ -151,10 +140,6 @@
         datos.append ( 'estado', estado);
         datos.append ( 'proyectoId', obtenerProyecto());
 
-        //La unica forma de ver los valores que tienen datos.append
-        // for(let valor of datos.values()){
-        //     console.log(valor);
-        // }
 
         try {
             const url = `${location.origin}/api/actualizar`;
@@ -245,19 +230,9 @@
 
     function actualizarCompletadasYPendientes(){
         // Inicializamos las completadas y las pendientes
-        // console.log(tareas);
         completadas = tareas.filter(tarea => tarea.estado == "1");
-        if(!completadas.length){
-            // completadasCheck.disabled = true;
-        } else {
-            completadasCheck.disabled = false;
-        }
         pendientes = tareas.filter(tarea => tarea.estado == "0");
-        if(!pendientes.length){
-            // pendientesCheck.disabled = true;
-        } else {
-            pendientesCheck.disabled = false;
-        }
+       // console.log(completas);
         // console.log(pendientes);
     }
 
