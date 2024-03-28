@@ -1,15 +1,30 @@
 ( function(){
     
     let tareas = [];
+    let filtradas = [];
     obtenerTareas();
-
-
     
     //boton para mostrar el formulario
     let nuevaTareaBtn = document.querySelector('#agregar-tarea');
     nuevaTareaBtn.addEventListener('click', function(){
         mostrarFormulario()
     });
+
+    const filtros = document.querySelectorAll('#filtros input[type="radio"]');
+    filtros.forEach( radio => radio.addEventListener('input', filtrarTareas));
+
+    function filtrarTareas(evento){
+        console.log(evento.target.value);
+        const filtro = evento.target.value
+        if(filtro != ""){
+            filtradas = tareas.filter( tarea => tarea.estado === filtro);
+        }else{
+            //Mostrar todas
+            filtradas = [];
+        }
+        // console.log(filtradas);
+        mostrarTareas();
+    }
 
     async function obtenerTareas(){
         try {
@@ -35,10 +50,17 @@
             listadoTareas.removeChild(listadoTareas.firstChild)
         }
     }
+    function totalPendientes(){
+        const totalPendientes = tareas.filter(tarea => tarea.estado === "0");
+    }
 
     function mostrarTareas(){
         limpiarTareas();
-        if(tareas.length === 0){
+        // totalPendientes();
+
+        const arrayTareas = filtradas.length ? filtradas : tareas;
+        console.log(filtradas)
+        if(arrayTareas.length === 0){
             const contenedorTareas = document.querySelector('#listado-tareas');
 
             const textNoTareas = document.createElement('LI');
@@ -54,7 +76,7 @@
             1: "Completa"
         };
 
-        tareas.forEach(tarea =>{
+        arrayTareas.forEach(tarea =>{
             const contenedorTarea = document.createElement('LI');
             contenedorTarea.dataset.tareaId = tarea.id;
             contenedorTarea.classList.add('tarea');
