@@ -13,4 +13,8 @@
         <a href="/crear-proyecto">Crear Proyecto</a>
         <a href="/perfil">Perfil</a>
     </nav>
+
+    <div class="cerrar-sesion-mobile">
+        <a href="/logout" class="cerrar-sesion">Cerrar Sesión</a>
+    </div>
 </aside>
