@@ -1,7 +1,11 @@
 ( function(){
-    
+    let todasCheck = document.querySelector('#todas'),
+    completadasCheck = document.querySelector('#completadas'),
+    pendientesCheck = document. querySelector('#pendientes');
+
     let tareas = [];
-    let filtradas = [];
+    let completadas = [];
+    let pendientes = [];
     obtenerTareas();
     
     //boton para mostrar el formulario
@@ -11,20 +15,7 @@
     });
 
     const filtros = document.querySelectorAll('#filtros input[type="radio"]');
-    filtros.forEach( radio => radio.addEventListener('input', filtrarTareas));
-
-    function filtrarTareas(evento){
-        console.log(evento.target.value);
-        const filtro = evento.target.value
-        if(filtro != ""){
-            filtradas = tareas.filter( tarea => tarea.estado === filtro);
-        }else{
-            //Mostrar todas
-            filtradas = [];
-        }
-        // console.log(filtradas);
-        mostrarTareas();
-    }
+    filtros.forEach( radio => radio.addEventListener('input', mostrarTareas));
 
     async function obtenerTareas(){
         try {
@@ -35,6 +26,23 @@
             // const {tareas} = resultado;
 
             tareas = resultado.tareas;
+
+            completadas = tareas.filter(tarea => tarea.estado === "1");
+            if(!completadas.length){
+                // Si no hay tareas completadas, 
+                // desactivamos el radio button completadas
+                // completadasCheck.disabled = true;
+            } else {
+                // Pero si hay, lo activamos
+                completadasCheck.disabled = false;
+            }
+            // Vamos con las pendientes
+            pendientes = tareas.filter(tarea => tarea.estado === "0");
+            if(!pendientes.length){
+                // pendientesCheck.disabled = true;
+            } else {
+                pendientesCheck.disabled = false;
+            }
 
             // console.log(tareas);
             mostrarTareas();
@@ -50,16 +58,24 @@
             listadoTareas.removeChild(listadoTareas.firstChild)
         }
     }
-    function totalPendientes(){
-        const totalPendientes = tareas.filter(tarea => tarea.estado === "0");
-    }
-
+   
     function mostrarTareas(){
         limpiarTareas();
-        // totalPendientes();
 
-        const arrayTareas = filtradas.length ? filtradas : tareas;
-        console.log(filtradas)
+        //Array que va trabajar con las tareas
+        let arrayTareas = [];
+
+        // checked puede ser true o false, según esté seleccionado o no
+        if(todasCheck.checked){
+            arrayTareas = tareas;
+        }else if(completadasCheck.checked){
+            arrayTareas = completadas;
+        }else{
+            arrayTareas = pendientes;
+        }
+
+        
+        //console.log(arrayTareas)
         if(arrayTareas.length === 0){
             const contenedorTareas = document.querySelector('#listado-tareas');
 
@@ -167,7 +183,7 @@
                     }
                     return tareaMemoria;
                 });
-
+                actualizarCompletadasYPendientes();
                 mostrarTareas();
             }
         } catch (error) {
@@ -219,12 +235,30 @@
                 Swal.fire('eliminado',resultado.mensaje, 'success');
                 
                 tareas = tareas.filter( tareaMemoria =>  tareaMemoria.id !== tarea.id);
-                
+                actualizarCompletadasYPendientes();
                 mostrarTareas();
             }
         } catch (error) {
             console.error('Error al eliminar tarea:', error);
         }
+    }
+
+    function actualizarCompletadasYPendientes(){
+        // Inicializamos las completadas y las pendientes
+        // console.log(tareas);
+        completadas = tareas.filter(tarea => tarea.estado == "1");
+        if(!completadas.length){
+            // completadasCheck.disabled = true;
+        } else {
+            completadasCheck.disabled = false;
+        }
+        pendientes = tareas.filter(tarea => tarea.estado == "0");
+        if(!pendientes.length){
+            // pendientesCheck.disabled = true;
+        } else {
+            pendientesCheck.disabled = false;
+        }
+        // console.log(pendientes);
     }
 
     // Scroll suave al inicio de la página
@@ -362,6 +396,7 @@
                 }
                 // console.log(tareaObj);
                 tareas = [... tareas, tareaObj];
+                actualizarCompletadasYPendientes();
                 mostrarTareas();
             }
         } catch (error) {
