@@ -13,6 +13,16 @@ function s($html) : string {
     return $s;
 }
 
+
+//Sanitizar - A la hora de la entrada de datos, ya sea por get o post
+function sanitizarArreglo ($arrayInput) : array { 
+    $output = [];
+    foreach($arrayInput as $key=>$value){
+        $output[$key]= s($value);
+    }
+    return $output;
+}
+
 // Función que revisa que el usuario este autenticado
 function isAuth() : void {
     if(!isset($_SESSION['login'])) {
