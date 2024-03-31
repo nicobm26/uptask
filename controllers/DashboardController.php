@@ -141,8 +141,17 @@ class DashboardController{
     public static function cambiar_password(Router $router){
         session_start();
         isAuth();
-
         $alertas=[];
+        if($_SERVER['REQUEST_METHOD'] == "POST"){
+            $usuario = Usuario::find($_SESSION["id"]);
+            // debuguear($_POST);
+            $claveActual = $_POST['clave-actual'];
+            $claveNueva = $_POST['clave-nueva'];
+            $alertas = $usuario->validarCamposNuevaClave($claveActual, $claveNueva);
+            // debuguear($alertas);
+        }
+
+       $alertas = Usuario::getAlertas();
         $router->render('dashboard/cambiar-password', [
             'titulo' => 'Cambiar Contraseña',
             'alertas' => $alertas
