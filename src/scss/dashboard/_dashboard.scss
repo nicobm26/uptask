@@ -36,4 +36,13 @@
             font-size: 1.4rem;
         }
     }
+
+    .enlace{
+        display: inline-block;
+        color: v.$indigo;        
+        margin-bottom: 2rem;
+        &:hover{
+            color: darken(v.$indigo, 20%);
+        }
+    }
 }
