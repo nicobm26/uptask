@@ -14,8 +14,10 @@
                 type="password"
                 value=""
                 name="clave-actual"
+                id="clave-actual"
                 placeholder="Tu Contraseña Actual"
             />
+            <span class="password-toggle" id="ojoAbierto">&#128584;</span>
         </div>
 
         <div class="campo">
@@ -24,8 +26,10 @@
                 type="password"
                 value=""
                 name="clave-nueva"
+                id="clave-nueva"
                 placeholder="Tu Contraseña Nueva"
             />
+            <span class="password-toggle" id="ojoAbierto2">&#128584;</span>
         </div>
 
         <input type="submit" value="Cambiar Contraseña">
@@ -36,4 +40,7 @@
 
 <?php
     include_once(__DIR__ ."/footer-dashboard.php");
+    $script ="
+        <script src='/build/js/verPassword.js'> </script>    
+    "
 ?>
