@@ -89,4 +89,16 @@ class Usuario extends ActiveRecord{
         return self::$alertas;
     }
 
+    public function validar_perfil(){
+        if(!$this->nombre){
+            self::$alertas['error'][] = 'El nombre es obligatorio';
+        }else if (! preg_match("/^[a-zA-Z0-9_-]+$/", $this->nombre)){
+            self::$alertas['error'][] = 'El nombre solo puede llevar caraceteres especiales de (_ , -)';
+        }
+
+        $this->validarEmail();
+        
+        return self::$alertas;
+    }
+
 }

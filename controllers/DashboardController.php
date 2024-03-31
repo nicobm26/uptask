@@ -102,7 +102,6 @@ class DashboardController{
         ]);
 
     }
-
     
     public static function perfil(Router $router){
         session_start();
@@ -111,7 +110,17 @@ class DashboardController{
         $alertas = [];
 
         $usuario = Usuario::find($_SESSION['id']);
-        
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $usuario->sincronizar(sanitizarArreglo($_POST));
+
+            // debuguear($usuario);
+
+            $alertas = $usuario->validar_perfil();
+            
+            if(empty($alertas)){
+               
+            }
+        }       
         $router->render('dashboard/perfil',[
             'titulo' => 'Proyectos',
             'usuario' => $usuario,
