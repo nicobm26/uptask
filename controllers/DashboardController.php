@@ -107,33 +107,44 @@ class DashboardController{
     public static function perfil(Router $router){
         session_start();
         isAuth();
-
         $alertas = [];
 
         $usuario = Usuario::find($_SESSION['id']);
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $usuario->sincronizar(sanitizarArreglo($_POST));
-
             // debuguear($usuario);
 
-            $alertas = $usuario->validar_perfil();
-            
+            $alertas = $usuario->validar_perfil();            
             if(empty($alertas)){
-               //Guardar el Usuario
-              
-               $usuario->guardar();
-               
-               Usuario::setAlerta('exito', 'Guardado Correctamente');
-               $alertas = $usuario->getAlertas();
+               //El correo ya existe ?
+               $existeUsuario = Usuario::where('email', $usuario->email);
 
-               $_SESSION['nombre'] = $usuario->nombre;            
+               if($existeUsuario && $existeUsuario->id !== $usuario->id){
+                    Usuario::setAlerta('error', 'Este correo ya esta registrado en otra cuenta, intenta con otro correo');    
+                }else{                    
+                    $usuario->guardar();                
+                    Usuario::setAlerta('exito', 'Guardado Correctamente');                    
+                    $_SESSION['nombre'] = $usuario->nombre; 
+                }
+                      
             }
+            $alertas = $usuario->getAlertas();
         }     
-        
-        
+                
         $router->render('dashboard/perfil',[
-            'titulo' => 'Proyectos',
+            'titulo' => 'Perfil',
             'usuario' => $usuario,
+            'alertas' => $alertas
+        ]);
+    }
+
+    public static function cambiar_password(Router $router){
+        session_start();
+        isAuth();
+
+        $alertas=[];
+        $router->render('dashboard/cambiar-password', [
+            'titulo' => 'Cambiar Contraseña',
             'alertas' => $alertas
         ]);
     }
