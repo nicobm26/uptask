@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Model\Proyecto;
 use Model\Usuario;
+use Model\Tarea;
 use MVC\Router;
 
 class DashboardController{
@@ -118,9 +119,18 @@ class DashboardController{
             $alertas = $usuario->validar_perfil();
             
             if(empty($alertas)){
+               //Guardar el Usuario
+              
+               $usuario->guardar();
                
+               Usuario::setAlerta('exito', 'Guardado Correctamente');
+               $alertas = $usuario->getAlertas();
+
+               $_SESSION['nombre'] = $usuario->nombre;            
             }
-        }       
+        }     
+        
+        
         $router->render('dashboard/perfil',[
             'titulo' => 'Proyectos',
             'usuario' => $usuario,
