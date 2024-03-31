@@ -25,6 +25,8 @@
                 placeholder="Tu Correo"
             />
         </div>
+
+        <input type="submit" value="Guardar Cambios">
     </form>
 </div>
 
