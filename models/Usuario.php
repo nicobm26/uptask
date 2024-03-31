@@ -101,4 +101,17 @@ class Usuario extends ActiveRecord{
         return self::$alertas;
     }
 
+
+    public function validarCamposNuevaClave($claveActual, $claveNueva){
+        if(!$claveActual){
+            self::$alertas['error'][] = 'La contraseña actual no puede ir vacia';
+        }
+        if(!$claveNueva){
+            self::$alertas['error'][] = 'La Nueva contraseña no puede ir vacia';
+        }else if(!preg_match("/^(?=(?:.*[A-Z]){1})(?=(?:.*[a-z]){5,})(?=(?:.*[0-9]){1})/", $claveNueva)){
+            self::$alertas['error'][] = "La Nueva contraseña no es válida. Debe contener al menos 5 letras minúsculas, un número y una letra mayúscula.";
+        }
+        return self::$alertas;
+    }
+
 }
