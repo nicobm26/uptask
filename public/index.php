@@ -40,6 +40,9 @@ $router->post('/proyecto/eliminar', [DashboardController::class, 'eliminar_proye
     //modificar el perfil
 $router->get( '/perfil' , [DashboardController::class, 'perfil']);
 $router->post( '/perfil' , [DashboardController::class, 'perfil']);
+$router->get( '/cambiar-password' , [DashboardController::class, 'cambiar_password']);
+$router->post( '/cambiar-password' , [DashboardController::class, 'cambiar_password']);
+
     //Visitar un proyecto
 $router->get( '/proyecto' , [DashboardController::class, 'proyecto']);
 $router->post( '/proyecto' , [DashboardController::class, 'proyecto']);
