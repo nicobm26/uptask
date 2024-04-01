@@ -69,7 +69,7 @@ class DashboardController{
                     $id = $_POST['id'];
                     $proyecto = Proyecto::find($id);
  
-                    // Eliminar Tareas del Proyecto (no olvides importar la clase Tarea)
+                    // Eliminar Tareas del Proyecto 
                     $tareas = Tarea::belongsTo('proyectoId', $proyecto->id);
  
                     foreach ($tareas as $tarea) {
