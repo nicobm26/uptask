@@ -21,6 +21,7 @@
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cancelar',
                     confirmButtonText: '¡Sí, eliminar!'
                 }).then((result) => {
                     // Valido el resultado, si es true, hago el submit al formulario.
