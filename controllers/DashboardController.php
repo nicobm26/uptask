@@ -148,6 +148,20 @@ class DashboardController{
             $claveActual = $_POST['clave-actual'];
             $claveNueva = $_POST['clave-nueva'];
             $alertas = $usuario->validarCamposNuevaClave($claveActual, $claveNueva);
+            if(empty($alertas)){
+                $resultado = $usuario->comprobar_password($claveActual);
+                if($resultado){
+                    $usuario->password = $claveNueva;
+                    // debuguear($usuario);
+                    $usuario->hashPassword();
+                    $resultado = $usuario->guardar();
+                    if($resultado){
+                        Usuario::setAlerta('exito', 'Contraseña Guardada correctamente');
+                    }
+                }else{
+                    Usuario::setAlerta('error', 'Contraseña Actual Incorrecta');
+                }
+            }
             // debuguear($alertas);
         }
 

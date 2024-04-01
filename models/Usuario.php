@@ -54,7 +54,7 @@ class Usuario extends ActiveRecord{
         return self::$alertas;
     }
 
-    public function hashPassword(){
+    public function hashPassword(): void{
         $this->password = password_hash( $this->password, PASSWORD_BCRYPT );
     }
 
@@ -112,6 +112,10 @@ class Usuario extends ActiveRecord{
             self::$alertas['error'][] = "La Nueva contraseña no es válida. Debe contener al menos 5 letras minúsculas, un número y una letra mayúscula.";
         }
         return self::$alertas;
+    }
+
+    public function comprobar_password($clave) : bool{
+        return password_verify($clave, $this->password);
     }
 
 }
