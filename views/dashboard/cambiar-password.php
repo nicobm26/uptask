@@ -40,7 +40,7 @@
 
 <?php
     include_once(__DIR__ ."/footer-dashboard.php");
-    $script ="
+    $script .="
         <script src='/build/js/verPassword.js'> </script>    
     "
 ?>
