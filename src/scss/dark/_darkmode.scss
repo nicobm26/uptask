@@ -1,0 +1,30 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+@media (prefers-color-scheme: dark){
+    $grisOscuro: #2C2C3B;
+    body{
+        background-color: $grisOscuro;
+    }
+    
+    .tagline,
+    .formulario .campo label,
+    .login .acciones a,
+    .crear .acciones a,
+    .olvide .acciones a{
+        color: v.$blanco;
+    }
+
+    .descripcion-pagina,
+    .formulario .campo input{
+        color: darken(v.$grisClaro , 10%);
+    }
+    
+    .formulario .campo input{
+        background-color: lighten($color: $grisOscuro, $amount: 15%);
+    }
+
+    .alerta.error{
+        background-color: v.$blanco;
+    }
+}
