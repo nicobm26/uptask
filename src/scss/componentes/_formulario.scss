@@ -13,9 +13,12 @@
         }
         input{
             flex: 1;
-            padding: 1rem;
+            padding: .6rem;
             border: none;
             background-color: lighten( v.$gris, 40%);
+            @include m.tablet {
+                padding: 1rem;
+            }
         }
     }
 
