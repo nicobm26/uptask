@@ -1,11 +1,12 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
 
-@media (prefers-color-scheme: dark){
+.dark-mode{
     $grisOscuro: #2C2C3B;
     body{
         background-color: $grisOscuro;
     }
+    background-color: $grisOscuro;
     
     .tagline,
     .formulario .campo label,
@@ -122,6 +123,21 @@
         }
         legend{
             color: v.$grisClaro;
+        }
+    }
+
+    .swal2-popup {
+        // font-family: v.$fuente_principal;
+        h1,h2,h3{
+            font-size: 2rem !important;
+        }
+        p,div,button{
+            font-size: 1.6rem !important;
+        }
+        .swal2-modal {
+            // background-color: #f4f4f4; /* Aquí puedes colocar el color de fondo deseado */
+            background-color: lighten($color: $grisOscuro, $amount: 10%)  !important;
+            background-color: $grisOscuro  !important;
         }
     }
 }
