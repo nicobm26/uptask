@@ -5,15 +5,19 @@ const sidebar = document.querySelector('.sidebar');
 if(mobileMenuBtn){
     mobileMenuBtn.addEventListener('click', function(){
         sidebar.classList.toggle('mostrar');
+        if(document.querySelector('.listado-proyectos'))
+            document.querySelector('.listado-proyectos').classList.toggle('ocultar');
     })
 }
 
 if(cerrarMenuBtn){
     cerrarMenuBtn.addEventListener('click', function(){
         sidebar.classList.add('ocultar');
+        if(document.querySelector('.listado-proyectos'))
+            document.querySelector('.listado-proyectos').classList.remove('ocultar');   
         setTimeout(() => {
             sidebar.classList.remove('mostrar');
-            sidebar.classList.remove('ocultar');         
+            sidebar.classList.remove('ocultar');                  
         }, 400);
     });
 }
