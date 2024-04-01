@@ -98,4 +98,24 @@
             display: none;
         }
     }
+
+    .contenedor-dark-mode{
+        
+        .dark-mode-boton{
+            width: 3rem;
+            margin: 0 auto;
+            filter: invert(100%);
+            align-self: center;
+            display: block;
+            &:hover{
+                cursor: pointer;
+            }
+    
+            @include m.tablet{
+                margin-top: 0;
+                margin: 0;
+                padding-left: 7px;
+            }
+        }
+    }
 }
