@@ -12,6 +12,12 @@
         <a href="/dashboard">Proyectos</a>
         <a href="/crear-proyecto">Crear Proyecto</a>
         <a href="/perfil">Perfil</a>
+        <div class="contenedor-dark-mode">
+            <img src="/build/img/dark-mode.svg" class="dark-mode-boton" alt="Dark mode boton">  
+        </div>
+        <!-- <img src="/build/img/dark-mode.svg" class="dark-mode-boton" alt="Dark mode boton"> -->
+
+
     </nav>
 
     <div class="cerrar-sesion-mobile">
